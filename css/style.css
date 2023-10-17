@@ -3,7 +3,7 @@
 * { padding: 0; margin: 0; }
 
 body {
-    background-color: white;
+    background-color: black;
     font-family: 'Tilt Neon', sans-serif;
 }
 
@@ -16,15 +16,24 @@ body {
     gap: 40px; 
     grid-auto-flow: row;
     grid-template-areas: "sl-con väder-con";
-    height: 100vh;
     box-sizing: border-box;
 }
   
 #sl-con { grid-area: sl-con; border: 2px solid rgb(59, 142, 250); }
 
-#väder-con { grid-area: väder-con; border: 2px solid rgb(59, 142, 250); }
-
-
+#väder-con { 
+    grid-area: väder-con; 
+    border: 2px solid rgb(59, 142, 250); 
+    padding: 20px;
+}
+#väder-con>div {
+    background-color: rgb(222, 222, 222);
+    padding: 20px;
+    border-radius: 4px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
 
 .busLogoRed {
     border-radius: 4px;
@@ -37,8 +46,8 @@ body {
     background-color: rgb(85, 118, 230);
 }
 .singleBusDiv {
-    margin: 10px;
-    padding: 5px;
+    margin: 20px;
+    padding: 10px;
     box-sizing: border-box;
     display:flex;
     justify-content: space-between;
@@ -52,4 +61,25 @@ body {
 }
 .singleBusDiv>div img {
     margin-right: 5px;
+}
+#tempDiv {
+    display: flex;
+    height: 20vh;
+    align-items: center;
+}
+#tempDiv>div {
+    font-size: 120px;
+}
+#lineDesc {
+    font-weight: bolder;
+    font-size: larger;
+    margin-bottom: 20px;
+}
+#currentTime {
+    font-size: xx-large;
+    margin-bottom: 4%;
+    border-bottom: 2px solid rgb(59, 142, 250); 
+}
+#location {
+    font-size: 35px;
 }
