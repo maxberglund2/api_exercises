@@ -7,6 +7,7 @@ fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9
         });
     });
 
+
 const sl = (data) => {
 /*     let busNumber = data.LineNumber;
     let busDestination = data.Destination;
@@ -30,24 +31,39 @@ const sl = (data) => {
     const con = document.getElementById('sl-con');
     const busCon = document.createElement('div');
     const leftElem = document.createElement('div');
-    const textBusNumber = document.createElement('p');
-    const textBusDestination = document.createElement('p');
-    const textBusTime = document.createElement('p');
-    //const textNextBusTime = document.createElement('p');
+    const busLogo = document.createElement('img');
+    const textBusNumberDestination = document.createElement('div');
+    const textBusTime = document.createElement('div');
 
-    textBusNumber.textContent = data.LineNumber;
-    textBusDestination.textContent = data.Destination;
+    textBusNumberDestination.textContent = data.LineNumber + ' ' + data.Destination;
     textBusTime.textContent = data.DisplayTime;
-    //textNextBusTime.textContent = data.DisplayTime;
+
+    busColor = "";
+    data.GroupOfLine == null ? busColor = "busLogoRed" : busColor = "busLogoBlue";
 
     busCon.style.display = 'flex';
     leftElem.style.display = 'flex';
+    busCon.setAttribute('class','singleBusDiv')
+    busLogo.setAttribute("src","../img/Bus-logo.svg.png");
+    busLogo.setAttribute("alt","Bus Logo");
+    busLogo.setAttribute("class", busColor);
 
     con.appendChild(busCon);
     busCon.appendChild(leftElem);
-    leftElem.appendChild(textBusNumber);
-    leftElem.appendChild(textBusDestination);
+    leftElem.appendChild(busLogo);
+    leftElem.appendChild(textBusNumberDestination);
     busCon.appendChild(textBusTime);
-    //busCon.appendChild(textNextBusTime);
 };
-//console.log(busArray)
+
+/* fetch('https://api.openweathermap.org/data/2.5/weather?q=huddinge&units=metric&appid=dbf87de7264865416362ce390de95c52')
+    .then(res => res.json())
+    .then(json => {
+        showInfo(data);
+    })
+const showInfo = (data) => {
+    const con = document.getElementById('väder-con');
+    const text = createElement('p')
+
+    text.textContent = data.name;
+    con.appendChild(text);
+} */
