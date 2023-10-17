@@ -19,12 +19,14 @@ body {
     box-sizing: border-box;
 }
   
-#sl-con { grid-area: sl-con; border: 2px solid rgb(59, 142, 250); }
+#sl-con { grid-area: sl-con; border: 2px solid rgb(59, 142, 250); height: fit-content; }
 
 #väder-con { 
     grid-area: väder-con; 
     border: 2px solid rgb(59, 142, 250); 
     padding: 20px;
+    padding-bottom: 0;
+    height: fit-content;
 }
 #väder-con>div {
     background-color: rgb(222, 222, 222);
@@ -82,4 +84,14 @@ body {
 }
 #location {
     font-size: 35px;
+}
+.book {
+    margin: 20px 0 20px 0;
+    flex-flow: row !important;
+}
+.book div {
+    margin-left: 3%;
+}
+#väder-con:last-child {
+    margin-bottom: 0;
 }

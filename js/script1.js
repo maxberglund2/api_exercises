@@ -8,7 +8,7 @@ fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9
     });
 
 
-const sl = (data) => {
+const sl = data => {
 /*     let busNumber = data.LineNumber;
     let busDestination = data.Destination;
     let busTime = data.DisplayTime;
@@ -60,7 +60,7 @@ fetch('https://api.openweathermap.org/data/2.5/weather?q=huddinge&units=metric&a
     .then(data => {
         showInfo(data);
     })
-    const showInfo = (data) => {
+    const showInfo = data => {
     const location = document.getElementById('location');
     const temp = document.querySelector("#tempDiv div")
     const weatherIcon = document.querySelector("#tempDiv img")
@@ -99,3 +99,37 @@ function updateTime() {
 }
 updateTime();
 setInterval(updateTime, 1000);
+
+
+
+// https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=5iq2VaveeSRXdAg0WnW9QnUtQyQAWFRT
+// https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=5iq2VaveeSRXdAg0WnW9QnUtQyQAWFRT
+fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=5iq2VaveeSRXdAg0WnW9QnUtQyQAWFRT')
+    .then(res => res.json())
+    .then(json => {
+        json.results.books.forEach(data => {
+            bestBooks(data);
+        });
+    });
+
+
+const bestBooks = data => {
+    const outerCon = document.getElementById('väder-con');
+    const innerCon = document.createElement('div');
+    const rank = document.createElement('h2');
+    const title_n_author = document.createElement('div');
+    const title = document.createElement('h2');
+    const author = document.createElement('p');
+
+    rank.textContent = data.rank;
+    title.textContent = data.title;
+    author.textContent = data.author;
+
+    outerCon.appendChild(innerCon);
+    innerCon.appendChild(rank);
+    innerCon.appendChild(title_n_author);
+    title_n_author.appendChild(title);
+    title_n_author.appendChild(author);
+
+    innerCon.setAttribute('class','book');
+}
