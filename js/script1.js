@@ -1,4 +1,20 @@
-//let busArray = [];
+const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function updateTime() {
+    const currentTime = document.getElementById("currentTime");
+
+    let time = new Date();
+    let day = daysOfWeek[time.getDay()];
+    let date = time.getDate();
+    let month = months[time.getMonth()]; 
+    let now = time.toLocaleTimeString();
+
+    currentTime.textContent = day + ' ' + date + ' ' + month + ' ' + now;
+}
+updateTime();
+setInterval(updateTime, 1000);
+
 fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9af038f51e91f&siteid=7000&timewindow=30')
     .then(res => res.json())
     .then(json => {
@@ -7,27 +23,7 @@ fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9
         });
     });
 
-
 const sl = data => {
-/*     let busNumber = data.LineNumber;
-    let busDestination = data.Destination;
-    let busTime = data.DisplayTime;
-
-    function Bus(number, destination, time, nextBus) {
-        this.number = number;
-        this.destination = destination;
-        this.time = time;
-        this.nextBus = nextBus;
-    }
-    const existingBus = busArray.find(bus => bus.destination === busDestination);
-
-    if (!existingBus) {
-        busArray.push(new Bus(busNumber, busDestination, busTime, null));
-    } else {
-        if (existingBus.nextBus === null) {
-            existingBus.nextBus = busTime;
-        }
-    } */
     const con = document.getElementById('sl-con');
     const busCon = document.createElement('div');
     const leftElem = document.createElement('div');
@@ -60,7 +56,8 @@ fetch('https://api.openweathermap.org/data/2.5/weather?q=huddinge&units=metric&a
     .then(data => {
         showInfo(data);
     })
-    const showInfo = data => {
+
+const showInfo = data => {
     const location = document.getElementById('location');
     const temp = document.querySelector("#tempDiv div")
     const weatherIcon = document.querySelector("#tempDiv img")
@@ -81,29 +78,48 @@ fetch('https://api.openweathermap.org/data/2.5/weather?q=huddinge&units=metric&a
     textVisibility.textContent = 'Visibility: ' + data.visibility/1000 + ' km';
     textPressure.textContent = 'Pressure: ' + data.main.pressure + ' hPa';
 }
-// https://api.openweathermap.org/data/2.5/forecast?lat=59.237&lon=17.9819&appid=dbf87de7264865416362ce390de95c52
 
-function updateTime() {
-    const currentTime = document.getElementById("currentTime");
+fetch('https://api.openweathermap.org/data/2.5/forecast?lat=59.237&lon=17.9819&units=metric&appid=dbf87de7264865416362ce390de95c52')
+    .then(res => res.json())
+    .then(json => {
+        json.list.forEach(data => {
+            showInfoMore(data);
+        });
+    });
 
-    let time = new Date();
-    let sweDays = ['Sön','Mån','Tis','Ons','Tor','Fre','Lör'];
-    let sweMonth = ['Jan','Feb','Mar','Apr','Maj','Jul','Jun','Aug','Sep','Okt','Nov','Dec']
-    let day = sweDays[time.getDay()];
-    let date = time.getDate();
-    let month = sweMonth[time.getMonth()]; 
-    let now = time.toLocaleTimeString();
+const showInfoMore = data => {
+    const timeCheck = data.dt_txt.split(' ');
 
+    const inputDate = new Date(timeCheck[0]);
 
-   currentTime.textContent = day + ' ' + date + ' ' + month + ' ' + now;
+    const dayOfWeek = daysOfWeek[inputDate.getDay()];
+    const month = months[inputDate.getMonth()];
+    const day = inputDate.getDate();
+
+    const formattedDate = `${dayOfWeek}, ${month} ${day}`;
+
+    if (timeCheck[1] === '15:00:00') {
+        const outerCon = document.getElementById('väder-con');
+        const innerCon = document.createElement('div');
+        const textDate = document.createElement('p');
+        const image = document.createElement('img');
+        const tempText = document.createElement('p');
+        const descText = document.createElement('p');
+
+        innerCon.setAttribute('id','weatherDays')
+        textDate.textContent = formattedDate;
+        image.setAttribute('src','https://openweathermap.org/img/wn/'+ data.weather[0].icon +'@4x.png');
+        tempText.textContent = `${Math.floor(data.main.temp_min)}/${Math.ceil(data.main.temp_max)}°C`;
+        descText.textContent = data.weather[0].description;
+
+        outerCon.appendChild(innerCon);
+        innerCon.appendChild(textDate);
+        innerCon.appendChild(image);
+        innerCon.appendChild(tempText);
+        innerCon.appendChild(descText);
+    }
 }
-updateTime();
-setInterval(updateTime, 1000);
 
-
-
-// https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=5iq2VaveeSRXdAg0WnW9QnUtQyQAWFRT
-// https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=5iq2VaveeSRXdAg0WnW9QnUtQyQAWFRT
 fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=5iq2VaveeSRXdAg0WnW9QnUtQyQAWFRT')
     .then(res => res.json())
     .then(json => {
@@ -112,9 +128,8 @@ fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json
         });
     });
 
-
 const bestBooks = data => {
-    const outerCon = document.getElementById('väder-con');
+    const outerCon = document.getElementById('book-con');
     const innerCon = document.createElement('div');
     const rank = document.createElement('h2');
     const title_n_author = document.createElement('div');
