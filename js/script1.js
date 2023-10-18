@@ -109,7 +109,7 @@ const showInfoMore = data => {
         innerCon.setAttribute('id','weatherDays')
         textDate.textContent = formattedDate;
         image.setAttribute('src','https://openweathermap.org/img/wn/'+ data.weather[0].icon +'@4x.png');
-        tempText.textContent = `${Math.floor(data.main.temp_min)}/${Math.ceil(data.main.temp_max)}°C`;
+        tempText.textContent = `${Math.ceil(data.main.temp_max)}/${Math.floor(data.main.temp_min)}°C`;
         descText.textContent = data.weather[0].description;
 
         outerCon.appendChild(innerCon);

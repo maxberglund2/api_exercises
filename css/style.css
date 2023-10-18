@@ -123,7 +123,7 @@ nav a:hover{
     flex-flow: row !important;
 }
 .book div {
-    margin-left: 3%;
+    margin-left: 10%;
 }
 #väder-con:last-child {
     margin-bottom: 0;
