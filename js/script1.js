@@ -81,7 +81,7 @@ fetch('https://api.openweathermap.org/data/2.5/weather?q=huddinge&units=metric&a
     textVisibility.textContent = 'Visibility: ' + data.visibility/1000 + ' km';
     textPressure.textContent = 'Pressure: ' + data.main.pressure + ' hPa';
 }
-
+// https://api.openweathermap.org/data/2.5/forecast?lat=59.237&lon=17.9819&appid=dbf87de7264865416362ce390de95c52
 
 function updateTime() {
     const currentTime = document.getElementById("currentTime");
