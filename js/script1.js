@@ -98,7 +98,7 @@ const showInfoMore = data => {
 
     const formattedDate = `${dayOfWeek}, ${month} ${day}`;
 
-    if (timeCheck[1] === '15:00:00') {
+    if (timeCheck[1] === '15:00:00' && Date.getDay() != inputDate.getDay()) {
         const outerCon = document.getElementById('väder-con');
         const innerCon = document.createElement('div');
         const textDate = document.createElement('p');
