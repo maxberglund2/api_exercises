@@ -15,7 +15,7 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 1000);
 
-fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9af038f51e91f&siteid=7000&timewindow=30')
+fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9af038f51e91f&siteid=7000&timewindow=15')
     .then(res => res.json())
     .then(json => {
         json.ResponseData.Buses.forEach(data => {
@@ -98,7 +98,8 @@ const showInfoMore = data => {
 
     const formattedDate = `${dayOfWeek}, ${month} ${day}`;
 
-    if (timeCheck[1] === '15:00:00' && Date.getDay() != inputDate.getDay()) {
+    const isToday = new Date().getDay() === inputDate.getDay();
+    if (timeCheck[1] === '15:00:00' && !isToday) {
         const outerCon = document.getElementById('väder-con');
         const innerCon = document.createElement('div');
         const textDate = document.createElement('p');
