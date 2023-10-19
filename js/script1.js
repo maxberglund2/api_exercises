@@ -15,13 +15,18 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 1000);
 
-fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9af038f51e91f&siteid=7000&timewindow=15')
+fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9af038f51e91f&siteid=7000&timewindow=25')
     .then(res => res.json())
     .then(json => {
         json.ResponseData.Buses.forEach(data => {
             sl(data);
         });
-    });
+
+        const con = document.getElementById('sl-con');
+        const line = document.createElement('div');
+        line.setAttribute('style','border-bottom: 2px solid rgb(59, 142, 250); margin: 0 0 10px 0;')
+        con.appendChild(line);
+    })
 
 const sl = data => {
     const con = document.getElementById('sl-con');
@@ -49,6 +54,39 @@ const sl = data => {
     leftElem.appendChild(busLogo);
     leftElem.appendChild(textBusNumberDestination);
     busCon.appendChild(textBusTime);
+};
+
+fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9af038f51e91f&siteid=7006&timewindow=120')
+    .then(res => res.json())
+    .then(json => {
+        json.ResponseData.Trains.forEach(data => {
+            sl2(data);
+        });
+    })
+
+const sl2 = data => {
+    const con = document.getElementById('sl-con');
+    const trainCon = document.createElement('div');
+    const leftElem = document.createElement('div');
+    const trainLogo = document.createElement('img');
+    const trainDestination = document.createElement('div');
+    const textTrainTime = document.createElement('div');
+
+    trainDestination.textContent = data.Destination;
+    textTrainTime.textContent = data.DisplayTime;
+
+    trainCon.style.display = 'flex';
+    leftElem.style.display = 'flex';
+    trainCon.setAttribute('class','singleBusDiv')
+    trainLogo.setAttribute("src","../img/Pendeltåg.png");
+    trainLogo.setAttribute("alt","Train Logo");
+    trainLogo.setAttribute("class", 'trainLogo');
+
+    con.appendChild(trainCon);
+    trainCon.appendChild(leftElem);
+    leftElem.appendChild(trainLogo);
+    leftElem.appendChild(trainDestination);
+    trainCon.appendChild(textTrainTime);
 };
 
 fetch('https://api.openweathermap.org/data/2.5/weather?q=huddinge&units=metric&appid=dbf87de7264865416362ce390de95c52')

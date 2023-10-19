@@ -13,7 +13,6 @@ const findDaysInWeek = () => {
         const date = (x + mondayDate).toString().padStart(2, '0');
         workDates.push(`${year}-${month}-${date}`);
     }
-    console.log(workDates)
 }
 
 findDaysInWeek()
