@@ -26,6 +26,8 @@ fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9
         const line = document.createElement('div');
         line.setAttribute('style','border-bottom: 2px solid rgb(59, 142, 250); margin: 0 0 10px 0;')
         con.appendChild(line);
+
+        trainFetch();
     })
 
 const sl = data => {
@@ -56,13 +58,15 @@ const sl = data => {
     busCon.appendChild(textBusTime);
 };
 
-fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9af038f51e91f&siteid=7006&timewindow=120')
+const trainFetch = () => {
+    fetch('https://api.sl.se/api2/realtimedeparturesV4.json?key=67fa0a3157ae45f594d9af038f51e91f&siteid=7006&timewindow=120')
     .then(res => res.json())
     .then(json => {
         json.ResponseData.Trains.forEach(data => {
             sl2(data);
         });
     })
+}
 
 const sl2 = data => {
     const con = document.getElementById('sl-con');
