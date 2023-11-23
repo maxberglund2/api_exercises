@@ -31,15 +31,18 @@ fetch('https://www.googleapis.com/calendar/v3/calendars/c_d9aaaa6aa5b776b23b57ec
         lessonCards();
     });
 
-const putIntoArray = data => {
-    const startTime = data.start.dateTime.split('T');
-    const endTime = data.end.dateTime.split('T');
-    if (workDates.includes(startTime[0])) {
-        allLessons.push(`${startTime[1].split('+')[0].slice(0,5)};${endTime[1].split('+')[0].slice(0,5)};${data.summary};${startTime[0]}`);
-        // startTime;endTime;summary;Date
-        allLessons.sort();
+    const putIntoArray = data => {
+        if (data.start.dateTime && data.end.dateTime) {
+            const startTime = data.start.dateTime.split('T');
+            const endTime = data.end.dateTime.split('T');
+            if (workDates.includes(startTime[0])) {
+                allLessons.push(`${startTime[1].split('+')[0].slice(0,5)};${endTime[1].split('+')[0].slice(0,5)};${data.summary};${startTime[0]}`);
+                // startTime;endTime;summary;Date
+                allLessons.sort();
+            }
+        }
     }
-}
+    
 
 const lessonCards = () => {
     const assignDiv = {
